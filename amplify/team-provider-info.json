@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-overtime-dev-220531-authRole",
+      "UnauthRoleArn": "arn:aws:iam::444025380770:role/amplify-overtime-dev-220531-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::444025380770:role/amplify-overtime-dev-220531-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-overtime-dev-220531-deployment",
+      "UnauthRoleName": "amplify-overtime-dev-220531-unauthRole",
+      "StackName": "amplify-overtime-dev-220531",
+      "StackId": "arn:aws:cloudformation:eu-north-1:444025380770:stack/amplify-overtime-dev-220531/a3392700-c145-11ee-a303-06119ad15477",
+      "AmplifyAppId": "d2hxbjqyl1hh1"
+    },
+    "categories": {
+      "auth": {
+        "overtime2c11a1ba": {}
+      }
+    }
+  }
+}
