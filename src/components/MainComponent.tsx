@@ -6,6 +6,7 @@ type MainComponentProps = {
 };
 
 const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
+    
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
       {/* <h1 >Hello {user?.username}</h1> */}
