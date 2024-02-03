@@ -3,26 +3,28 @@ import React, { useEffect } from "react";
 type MainComponentProps = {
   user?: { username?: string };
   onSignOut: (() => void) | undefined;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>  ;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const MainComponent = ({ user, onSignOut, setIsAuthenticated }: MainComponentProps) => {
-
+const MainComponent = ({
+  user,
+  onSignOut,
+  setIsAuthenticated,
+}: MainComponentProps) => {
+  
   useEffect(() => {
-    if(user){
-      setIsAuthenticated(true)
+    if (user) {
+      setIsAuthenticated(true);
     }
-  },[user]
-  );
+  }, [user]);
 
   const handleSignOut = () => {
-    onSignOut && onSignOut(); 
-    setIsAuthenticated(false); 
+    onSignOut && onSignOut();
+    setIsAuthenticated(false);
   };
 
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
-      {/* <h1 >Hello {user?.username}</h1> */}
       <h1 className="text-3xl font-bold text-gray-600 mt-8 ">WHEN I WORK</h1>
       <button
         className="bg-cyan-800 text-white rounded-md p-2 absolute right-2 bottom-2 "
