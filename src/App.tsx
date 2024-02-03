@@ -9,15 +9,19 @@ Amplify.configure(amplifyConfig);
 
 function App() {
   const [jwtToken, setJwtToken] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     async function fetchToken() {
       try {
-        const authToken = (
-          await fetchAuthSession()
-        ).tokens?.idToken?.toString();
-        if (authToken) {
-          setJwtToken(authToken);
+        if (isAuthenticated) {
+          const authToken = (
+            await fetchAuthSession()
+          ).tokens?.idToken?.toString();
+          console.log(authToken);
+          if (authToken) {
+            setJwtToken(authToken);
+          }
         }
       } catch (err) {
         console.log(err);
@@ -25,9 +29,9 @@ function App() {
     }
 
     fetchToken();
-  }, []);
+  }, [isAuthenticated]);
   return (
-    <Authenticator>
+    <Authenticator >
       {({ signOut, user }) => (
         <main>
           <MainComponent user={user} onSignOut={signOut} />
