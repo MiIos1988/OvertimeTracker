@@ -30,11 +30,12 @@ function App() {
 
     fetchToken();
   }, [isAuthenticated]);
+  
   return (
     <Authenticator >
       {({ signOut, user }) => (
         <main>
-          <MainComponent user={user} onSignOut={signOut} />
+          <MainComponent user={user} onSignOut={signOut} setIsAuthenticated={setIsAuthenticated} />
         </main>
       )}
     </Authenticator>

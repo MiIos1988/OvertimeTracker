@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 type MainComponentProps = {
   user?: { username?: string };
   onSignOut: (() => void) | undefined;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> | (() => void) ;
 };
 
-const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
-    
+const MainComponent = ({ user, onSignOut, setIsAuthenticated }: MainComponentProps) => {
+
+  useEffect(() => {
+    if(user){
+      setIsAuthenticated(true)
+    }
+  },[user]
+  )
+
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
       {/* <h1 >Hello {user?.username}</h1> */}
