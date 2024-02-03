@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 type MainComponentProps = {
   user?: { username?: string };
   onSignOut: (() => void) | undefined;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> | (() => void) ;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>  ;
 };
 
 const MainComponent = ({ user, onSignOut, setIsAuthenticated }: MainComponentProps) => {
@@ -13,7 +13,12 @@ const MainComponent = ({ user, onSignOut, setIsAuthenticated }: MainComponentPro
       setIsAuthenticated(true)
     }
   },[user]
-  )
+  );
+
+  const handleSignOut = () => {
+    onSignOut && onSignOut(); 
+    setIsAuthenticated(false); 
+  };
 
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
@@ -21,7 +26,7 @@ const MainComponent = ({ user, onSignOut, setIsAuthenticated }: MainComponentPro
       <h1 className="text-3xl font-bold text-gray-600 mt-8 ">WHEN I WORK</h1>
       <button
         className="bg-cyan-800 text-white rounded-md p-2 absolute right-2 bottom-2 "
-        onClick={onSignOut}
+        onClick={handleSignOut}
       >
         Sign out
       </button>
