@@ -24,16 +24,12 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     return config;
   });
 
-  const handleSignOut = () => {
-    onSignOut && onSignOut();
-  };
-
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
       <h1 className="text-3xl font-bold text-gray-600 mt-8 ">WHEN I WORK</h1>
       <button
         className="bg-cyan-800 text-white rounded-md p-2 absolute right-2 bottom-2 "
-        onClick={handleSignOut}
+        onClick={onSignOut}
       >
         Sign out
       </button>
