@@ -3,16 +3,19 @@ import { getTokenInLocalStorage } from "../service/authService";
 import axios from "axios";
 
 type MainComponentProps = {
-  user?: { username?: string, userId?: string };
+  user?: { username?: string; userId?: string };
   onSignOut: (() => void) | undefined;
 };
 
-const MainComponent = ({
-  user,
-  onSignOut,
-}: MainComponentProps) => {
+const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
+  const [token, setToken] = useState<string | null>(null);
 
-  const [token, setToken] = useState <string | null> (null);
+  useEffect(() => {
+    if (user) {
+      const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.idToken`;
+      setToken(getTokenInLocalStorage(idToken));
+    }
+  }, [user]);
 
   axios.interceptors.request.use((config) => {
     if (token) {
@@ -20,13 +23,6 @@ const MainComponent = ({
     }
     return config;
   });
-
-  useEffect(() => {
-    if (user) {
-      const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.idToken`;
-      setToken(getTokenInLocalStorage(idToken)) 
-    }
-  }, [user]);
 
   const handleSignOut = () => {
     onSignOut && onSignOut();
