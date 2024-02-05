@@ -1,26 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { getTokenInLocalStorage } from "../service/authService";
+import axios from "axios";
 
 type MainComponentProps = {
-  user?: { username?: string };
+  user?: { username?: string, userId?: string };
   onSignOut: (() => void) | undefined;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const MainComponent = ({
   user,
   onSignOut,
-  setIsAuthenticated,
 }: MainComponentProps) => {
-  
+
+  const [token, setToken] = useState <string | null> (null);
+
+  axios.interceptors.request.use((config) => {
+    if (token) {
+      config.headers.Authorization = token;
+    }
+    return config;
+  });
+
   useEffect(() => {
     if (user) {
-      setIsAuthenticated(true);
+      const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.idToken`;
+      setToken(getTokenInLocalStorage(idToken)) 
     }
   }, [user]);
 
   const handleSignOut = () => {
     onSignOut && onSignOut();
-    setIsAuthenticated(false);
   };
 
   return (
