@@ -33,10 +33,21 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   }, [token]);
 
   useEffect(() => {
-    if (token) {
-      const decodedToken: any = jwtDecode(token);
-      createManager({ userId: decodedToken.sub, email: decodedToken.email });
-    }
+    const fetchData = async () => {
+      try {
+        if (token) {
+          const decodedToken: any = jwtDecode(token);
+         const response =  await createManager({
+            userId: decodedToken.sub,
+            email: decodedToken.email,
+          });
+          console.log("Success", response);
+        }
+      } catch (err) {
+        console.log("Error", err);
+      }
+    };
+    fetchData();
   }, [token]);
 
   return (
