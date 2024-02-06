@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTokenInLocalStorage } from "../service/authService";
+import { createManager, getTokenInLocalStorage } from "../service/authService";
 import axios from "axios";
 
 type MainComponentProps = {
@@ -14,8 +14,11 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     if (user) {
       const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.idToken`;
       setToken(getTokenInLocalStorage(idToken));
+      createManager(idToken);
     }
   }, [user]);
+
+  axios.defaults.baseURL = "http://localhost:5500/api";
 
   axios.interceptors.request.use((config) => {
     if (token) {
