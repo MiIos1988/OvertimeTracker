@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createManager, getTokenInLocalStorage } from "../service/authService";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -14,18 +15,29 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     if (user) {
       const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.idToken`;
       setToken(getTokenInLocalStorage(idToken));
-      createManager(idToken);
     }
   }, [user]);
 
-  axios.defaults.baseURL = "http://localhost:5500/api";
+  useEffect(() => {
+    axios.defaults.baseURL = "http://localhost:5500/api";
+    const interceptor = axios.interceptors.request.use((config) => {
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
 
-  axios.interceptors.request.use((config) => {
+    return () => {
+      axios.interceptors.request.eject(interceptor);
+    };
+  }, [token]);
+
+  useEffect(() => {
     if (token) {
-      config.headers.Authorization = token;
+      const decodedToken: any = jwtDecode(token);
+      createManager({ userId: decodedToken.sub, email: decodedToken.email });
     }
-    return config;
-  });
+  }, [token]);
 
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">

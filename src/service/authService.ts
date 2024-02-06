@@ -1,5 +1,10 @@
 import axios from "axios"
 
+type CreateManagerData = {
+    userId: string,
+    email: string
+}
+
 export const getTokenInLocalStorage = (token: string) => localStorage.getItem(token);
 
-export const createManager = (token: string) => axios.post("/manager/add-manager", token);
+export const createManager = (data: CreateManagerData) => axios.post("/manager/add-manager", data);
