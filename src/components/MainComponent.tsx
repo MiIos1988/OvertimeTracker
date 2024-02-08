@@ -41,7 +41,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
             userId: decodedToken.sub,
             email: decodedToken.email,
           });
-          console.log("Success", response);
+          console.log("Success");
         }
       } catch (err) {
         console.log("Error", err);
