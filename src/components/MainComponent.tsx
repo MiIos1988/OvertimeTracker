@@ -13,13 +13,13 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
 
   useEffect(() => {
     if (user) {
-      const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.idToken`;
+      const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.accessToken`;
       setToken(getTokenInLocalStorage(idToken));
     }
   }, [user]);
 
   useEffect(() => {
-    axios.defaults.baseURL = "http://localhost:5500/api";
+    axios.defaults.baseURL = "http://localhost:3600/api";
     const interceptor = axios.interceptors.request.use((config) => {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -36,11 +36,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     const fetchData = async () => {
       try {
         if (token) {
-          const decodedToken: any = jwtDecode(token);
-         const response =  await createManager({
-            userId: decodedToken.sub,
-            email: decodedToken.email,
-          });
+        //   const decodedToken: any = jwtDecode(token);
+         const response =  await createManager();
           console.log("Success");
         }
       } catch (err) {
