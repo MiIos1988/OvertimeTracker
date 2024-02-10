@@ -19,7 +19,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   }, [user]);
 
   useEffect(() => {
-    axios.defaults.baseURL = "http://localhost:3600/api";
+    axios.defaults.baseURL = "http://localhost:5000/api";
     const interceptor = axios.interceptors.request.use((config) => {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
