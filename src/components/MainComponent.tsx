@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createManager, getTokenInLocalStorage } from "../service/authService";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -9,20 +8,23 @@ type MainComponentProps = {
 };
 
 const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [tokenAccess, setTokenAccess] = useState<string | null>(null);
+  const [tokenId, setTokenId] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
-      const idToken = `CognitoIdentityServiceProvider.3gt5j5ft7bhsc3qkmtrddcjstt.${user.userId}.accessToken`;
-      setToken(getTokenInLocalStorage(idToken));
+      const accessToken = `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_USER_POOLS}.${user.userId}.accessToken`;
+      const idToken = `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_USER_POOLS}.${user.userId}.idToken`;
+      setTokenAccess(getTokenInLocalStorage(accessToken));
+      setTokenId(getTokenInLocalStorage(idToken));
     }
   }, [user]);
 
   useEffect(() => {
     axios.defaults.baseURL = "http://localhost:5000/api";
     const interceptor = axios.interceptors.request.use((config) => {
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+      if (tokenAccess) {
+        config.headers.Authorization = `Bearer ${tokenAccess}`;
       }
       return config;
     });
@@ -30,14 +32,13 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     return () => {
       axios.interceptors.request.eject(interceptor);
     };
-  }, [token]);
+  }, [tokenAccess]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (token) {
-        //   const decodedToken: any = jwtDecode(token);
-         const response =  await createManager();
+        if (tokenId) {
+         const response =  await createManager(tokenId);
           console.log("Success");
         }
       } catch (err) {
@@ -45,7 +46,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
       }
     };
     fetchData();
-  }, [token]);
+  }, [tokenAccess]);
 
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
