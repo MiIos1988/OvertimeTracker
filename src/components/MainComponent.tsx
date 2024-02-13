@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createManager, getTokenInLocalStorage } from "../service/authService";
+import { createManager, createWorker, getTokenInLocalStorage } from "../service/service";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,16 @@ type MainComponentProps = {
 const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [tokenAccess, setTokenAccess] = useState<string | null>(null);
   const [tokenId, setTokenId] = useState<string | null>(null);
+  const [inputWorker, setInputWorker] = useState<string>("");
+
+  const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputWorker(e.target.value);
+  }
+  const addWorkerBtn = async() => {
+    if(inputWorker){
+      const response = await createWorker(inputWorker);
+    }
+  }
 
   useEffect(() => {
     if (user) {
@@ -67,8 +77,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           className="w-full p-2 shadow-xl text-lg"
           type="text"
           placeholder="Enter the worker"
+          onChange={addWorkerInput}
         />
-        <button className="bg-gray-300 p-2 ">Add</button>
+        <button className="bg-gray-300 p-2 " onClick={addWorkerBtn}>Add</button>
       </div>
       <div className="flex-1 w-11/12 lg:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14"></div>
       <ToastContainer
