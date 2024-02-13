@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createManager, getTokenInLocalStorage } from "../service/authService";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -72,7 +73,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
       <div className="flex-1 w-11/12 lg:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14"></div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -80,8 +81,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
-        
+        theme="colored"
       />
     </div>
   );
