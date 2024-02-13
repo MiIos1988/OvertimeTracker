@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createManager, getTokenInLocalStorage } from "../service/authService";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -38,7 +39,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     const fetchData = async () => {
       try {
         if (tokenId) {
-         const response =  await createManager(tokenId);
+          const response = await createManager(tokenId);
+          if (response.data === "Create manager") {
+            toast.success("Hello...")
+          }
           console.log("Success");
         }
       } catch (err) {
@@ -66,6 +70,19 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         <button className="bg-gray-300 p-2 ">Add</button>
       </div>
       <div className="flex-1 w-11/12 lg:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14"></div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        
+      />
     </div>
   );
 };
