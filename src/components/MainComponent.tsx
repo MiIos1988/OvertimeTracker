@@ -20,6 +20,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const addWorkerBtn = async() => {
     if(inputWorker){
       const response = await createWorker(inputWorker);
+      setInputWorker("");
+      console.log(response.data.allWorkers)
     }
   }
 
@@ -78,6 +80,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           type="text"
           placeholder="Enter the worker"
           onChange={addWorkerInput}
+          value={inputWorker}
         />
         <button className="bg-gray-300 p-2 " onClick={addWorkerBtn}>Add</button>
       </div>
