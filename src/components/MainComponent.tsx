@@ -13,6 +13,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [tokenAccess, setTokenAccess] = useState<string | null>(null);
   const [tokenId, setTokenId] = useState<string | null>(null);
   const [inputWorker, setInputWorker] = useState<string>("");
+  const [allWorkers, setAllWorkers] = useState<string[]>([])
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
@@ -21,7 +22,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     if(inputWorker){
       const response = await createWorker(inputWorker);
       setInputWorker("");
-      console.log(response.data.allWorkers)
+      setAllWorkers(response.data.allWorkers)
     }
   }
 
@@ -54,7 +55,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         if (tokenId) {
           const response = await createManager(tokenId);
           if (response.data === "Create manager") {
-            toast.success("Hello...")
+            toast.success("Hello...");
+          }else{
+            setAllWorkers(response.data.allWorkers);
+
           }
           console.log("Success");
         }
@@ -84,7 +88,15 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         />
         <button className="bg-gray-300 p-2 " onClick={addWorkerBtn}>Add</button>
       </div>
-      <div className="flex-1 w-11/12 lg:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14"></div>
+      <div className="flex-1 w-11/12 lg:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14">
+        {
+          allWorkers.map((worker, index )=> {
+            return (
+              <div key={index}>{worker}</div>
+            )
+          })
+        }
+      </div>
       <ToastContainer
         position="top-right"
         autoClose={3000}
