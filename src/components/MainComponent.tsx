@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { createManager, createWorker, getTokenInLocalStorage } from "../service/service";
+import {
+  createManager,
+  createWorker,
+  getTokenInLocalStorage,
+} from "../service/service";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import userImg from "../assets/img/userImg.png";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -13,18 +18,18 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [tokenAccess, setTokenAccess] = useState<string | null>(null);
   const [tokenId, setTokenId] = useState<string | null>(null);
   const [inputWorker, setInputWorker] = useState<string>("");
-  const [allWorkers, setAllWorkers] = useState<string[]>([])
+  const [allWorkers, setAllWorkers] = useState<string[]>([]);
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
-  }
-  const addWorkerBtn = async() => {
-    if(inputWorker){
+  };
+  const addWorkerBtn = async () => {
+    if (inputWorker) {
       const response = await createWorker(inputWorker);
       setInputWorker("");
-      setAllWorkers(response.data.allWorkers)
+      setAllWorkers(response.data.allWorkers);
     }
-  }
+  };
 
   useEffect(() => {
     if (user) {
@@ -56,9 +61,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           const response = await createManager(tokenId);
           if (response.data === "Create manager") {
             toast.success("Hello...");
-          }else{
+          } else {
             setAllWorkers(response.data.allWorkers);
-
           }
           console.log("Success");
         }
@@ -86,16 +90,25 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           onChange={addWorkerInput}
           value={inputWorker}
         />
-        <button className="bg-gray-300 p-2 " onClick={addWorkerBtn}>Add</button>
+        <button className="bg-gray-300 p-2 " onClick={addWorkerBtn}>
+          Add
+        </button>
       </div>
       <div className="flex-1 w-11/12 lg:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14">
-        {
-          allWorkers.map((worker, index )=> {
-            return (
-              <div key={index}>{worker}</div>
-            )
-          })
-        }
+        {allWorkers.map((worker, index) => {
+          return (
+            <div key={index} className="flex items-center">
+              <div>
+                <img src={userImg} alt="Change image" className="w-10" />
+              </div>
+              <div className="flex items-center ml-2">
+                <div className="mr-2">{worker}</div>
+                <button className="mr-2">Add time</button>
+                <button>Show</button>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <ToastContainer
         position="top-right"
