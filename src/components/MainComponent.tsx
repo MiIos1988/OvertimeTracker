@@ -101,7 +101,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
               <div>
                 <img src={userImg} alt="Change image" className="w-10" />
               </div>
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <div className="mr-2">{worker}</div>
                 <button className="mr-2">Add time</button>
                 <button>Show</button>
