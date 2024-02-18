@@ -82,7 +82,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
       >
         Sign out
       </button>
-      <div className="flex w-11/12 lg:w-2/4 my-8">
+      <div className="flex w-11/12 xl:w-2/4 my-8">
         <input
           className="w-full p-2 shadow-xl text-lg"
           type="text"
@@ -94,18 +94,23 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           Add
         </button>
       </div>
-      <div className="flex-1 w-11/12 lg:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14">
+      <div className="flex-1 w-11/12 xl:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14">
         {allWorkers.map((worker, index) => {
           return (
-            <div key={index} className="flex items-center">
-              <div>
-                <img src={userImg} alt="Change image" className="w-10" />
+            <div key={index} >
+            <div className="flex items-center py-2 ">
+              <div className="px-3">
+                <img src={userImg} alt="Change image" className="w-10 " />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="mr-2">{worker}</div>
-                <button className="mr-2">Add time</button>
-                <button>Show</button>
+              <div className="md:flex block flex-grow justify-between">
+                <div className="flex items-center text-xl font-medium">{worker}</div>
+                <div>
+                <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 text-white">Add overtime</button>
+                <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 text-white">Show overtime</button>
+                </div>
               </div>
+            </div>
+            <hr className="w-11/12 mx-auto shadow-md"/>
             </div>
           );
         })}
