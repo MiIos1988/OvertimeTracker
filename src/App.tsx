@@ -7,7 +7,7 @@ Amplify.configure(amplifyConfig);
 
 function App() {
   return (
-    <Authenticator>
+    <Authenticator className="mt-16">
       {({ signOut, user }) => (
         <main>
           <MainComponent user={user} onSignOut={signOut} />

@@ -75,7 +75,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
 
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
-      <h1 className="text-3xl font-bold text-gray-600 mt-8 ">WHEN I WORK</h1>
+      <h1 className="text-3xl font-bold text-gray-600 mt-8 bg-white shadow-xl bg-opacity-40 px-2">
+        WHEN I WORKED LONGER
+      </h1>
       <button
         className="bg-cyan-800 text-white rounded-md p-2 absolute right-2 bottom-2 "
         onClick={onSignOut}
@@ -94,23 +96,29 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           Add
         </button>
       </div>
-      <div className="flex-1 w-11/12 xl:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14">
+      <div className="flex-1 w-11/12 xl:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14 overflow-auto">
         {allWorkers.map((worker, index) => {
           return (
-            <div key={index} >
-            <div className="flex items-center py-2 ">
-              <div className="px-3">
-                <img src={userImg} alt="Change image" className="w-10 " />
-              </div>
-              <div className="md:flex block flex-grow justify-between">
-                <div className="flex items-center text-xl font-medium">{worker}</div>
-                <div>
-                <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 text-white">Add overtime</button>
-                <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 text-white">Show overtime</button>
+            <div key={index}>
+              <div className="flex items-center py-2 hover:bg-gray-100">
+                <div className="px-3">
+                  <img src={userImg} alt="Change image" className="w-10 " />
+                </div>
+                <div className="md:flex block flex-grow justify-between">
+                  <div className="flex items-center text-xl font-medium hover:font-bold">
+                    {worker}
+                  </div>
+                  <div>
+                    <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white" >
+                      Add overtime
+                    </button>
+                    <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white">
+                      Show overtime
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <hr className="w-11/12 mx-auto shadow-md"/>
+              <hr className="w-11/12 mx-auto shadow-md" />
             </div>
           );
         })}
