@@ -27,7 +27,12 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     if (inputWorker) {
       const response = await createWorker(inputWorker);
       setInputWorker("");
-      setAllWorkers(response.data.allWorkers);
+      console.log(response.data);
+      if (response.data === "Worker exist") {
+        toast.error("Worker exist!!!");
+      } else {
+        setAllWorkers(response.data.allWorkers);
+      }
     }
   };
 
@@ -75,7 +80,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
 
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
-      <h1 className="text-3xl font-bold text-gray-600 mt-8 bg-white shadow-xl bg-opacity-40 px-2">
+      <h1 className="sm:text-3xl text-2xl font-bold text-gray-600 mt-8 bg-white shadow-xl bg-opacity-40 px-2">
         WHEN I WORKED LONGER
       </h1>
       <button
@@ -109,7 +114,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                     {worker}
                   </div>
                   <div>
-                    <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white" >
+                    <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white">
                       Add overtime
                     </button>
                     <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white">
