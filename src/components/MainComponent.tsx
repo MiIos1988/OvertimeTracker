@@ -8,6 +8,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import userImg from "../assets/img/userImg.png";
+import ChangeAndDeleteWorker from "./ChangeAndDeleteWorker";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -19,6 +20,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [tokenId, setTokenId] = useState<string | null>(null);
   const [inputWorker, setInputWorker] = useState<string>("");
   const [allWorkers, setAllWorkers] = useState<string[]>([]);
+  const [clickWorker, setClickWorker] = useState<string>("")
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
@@ -77,6 +79,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     fetchData();
   }, [tokenAccess]);
 
+  const openChangeAndDeleteWin = (worker: string) => {
+    setClickWorker(worker)
+  }
+
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
       <h1 className="sm:text-3xl text-2xl font-bold text-gray-600 mt-8 bg-white shadow-xl bg-opacity-40 px-2">
@@ -113,7 +119,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                   />
                 </div>
                 <div className="md:flex block flex-grow justify-between">
-                  <div className="flex items-center text-xl font-medium hover:font-bold cursor-pointer">
+                  <div className="flex items-center text-xl font-medium hover:font-bold cursor-pointer" onClick={() => openChangeAndDeleteWin(worker)}>
                     {worker}
                   </div>
                   <div>
@@ -143,6 +149,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         pauseOnHover
         theme="colored"
       />
+      <ChangeAndDeleteWorker worker={clickWorker}/>
     </div>
   );
 };
