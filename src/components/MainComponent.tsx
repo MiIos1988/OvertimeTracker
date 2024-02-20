@@ -27,7 +27,6 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     if (inputWorker) {
       const response = await createWorker(inputWorker);
       setInputWorker("");
-      console.log(response.data);
       if (response.data === "Worker exist") {
         toast.error("Worker exist!!!");
       } else {
@@ -107,10 +106,14 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
             <div key={index}>
               <div className="flex items-center py-2 hover:bg-gray-100">
                 <div className="px-3">
-                  <img src={userImg} alt="Change image" className="w-10 " />
+                  <img
+                    src={userImg}
+                    alt="Change image"
+                    className="w-10 cursor-pointer"
+                  />
                 </div>
                 <div className="md:flex block flex-grow justify-between">
-                  <div className="flex items-center text-xl font-medium hover:font-bold">
+                  <div className="flex items-center text-xl font-medium hover:font-bold cursor-pointer">
                     {worker}
                   </div>
                   <div>
