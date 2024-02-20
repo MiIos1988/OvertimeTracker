@@ -21,6 +21,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [inputWorker, setInputWorker] = useState<string>("");
   const [allWorkers, setAllWorkers] = useState<string[]>([]);
   const [clickWorker, setClickWorker] = useState<string>("")
+  const [hideChangeAndDeleteComponent, setHideChangeAndDeleteComponent] = useState<boolean>(true)
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
@@ -80,7 +81,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   }, [tokenAccess]);
 
   const openChangeAndDeleteWin = (worker: string) => {
-    setClickWorker(worker)
+    setClickWorker(worker);
+    setHideChangeAndDeleteComponent(false)
   }
 
   return (
@@ -149,7 +151,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         pauseOnHover
         theme="colored"
       />
-      <ChangeAndDeleteWorker worker={clickWorker}/>
+      {
+        !hideChangeAndDeleteComponent && <ChangeAndDeleteWorker worker={clickWorker} setHideChangeAndDeleteComponent={setHideChangeAndDeleteComponent}/>
+      }
+      
     </div>
   );
 };
