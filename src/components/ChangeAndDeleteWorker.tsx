@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type ChangeAndDeleteWorkerProps = {
   worker: string;
@@ -11,6 +11,16 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
   worker,
   setHideChangeAndDeleteComponent,
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [showDeleteWin, setShowDeleteWin] = useState<boolean>(false);
+  const [showChangeWin, setShowChangeWin] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const handleInnerDivClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
@@ -27,10 +37,15 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
       >
         <h1 className="text-center text-2xl font-medium pb-3">{worker}</h1>
         <div className="flex flex-col sm:flex-row justify-evenly ">
-          <button className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-red-500 hover:bg-red-600 text-white">
+          <button
+            className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-red-500 hover:bg-red-600 text-white"
+            onClick={() => setShowDeleteWin(true)}
+          >
             Delete worker
           </button>
-          <button className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-yellow-500 hover:bg-yellow-600 text-white">
+          <button className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-yellow-500 hover:bg-yellow-600 text-white"
+          onClick={() => setShowChangeWin(true)}
+          >
             Change name
           </button>
         </div>
@@ -41,6 +56,56 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
           x
         </button>
       </div>
+      {showDeleteWin && (
+        <div
+          className="absolute w-screen h-screen flex justify-center items-center bg-opacity-75 "
+          onClick={handleInnerDivClick}
+        >
+          <div className="relative bg-white p-8 rounded-lg w-11/12 lg:w-5/12">
+            <h1 className="text-center text-2xl font-medium pb-3">
+              Are you sure?
+            </h1>
+            <div className="flex flex-col sm:flex-row justify-evenly ">
+              <button className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-red-500 hover:bg-red-600 text-white">
+                Delete
+              </button>
+              <button
+                className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-yellow-500 hover:bg-yellow-600 text-white"
+                onClick={() => setShowDeleteWin(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showChangeWin && (
+        <div
+          className="absolute w-screen h-screen flex justify-center items-center bg-opacity-75 "
+          onClick={handleInnerDivClick}
+        >
+          <div className="relative bg-white px-2 sm:px-8 py-8 rounded-lg w-11/12 lg:w-5/12 ">
+            <h1 className="text-center text-2xl font-medium ">Change name</h1>
+            <div className="flex w-11/12 xl:w-2/4 my-4 mx-auto">
+              <input
+                className="w-full p-2 shadow-xl text-lg"
+                type="text"
+                placeholder="Change name"
+                ref={inputRef}
+              />
+              <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 ">
+                Change
+              </button>
+            </div>
+            <button
+              className="text-xl font-medium absolute top-5 right-5"
+              onClick={() => setShowChangeWin(false)}
+            >
+              x
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
