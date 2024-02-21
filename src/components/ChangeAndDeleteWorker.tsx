@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
+import { deleteWorkerInBackend } from "../service/service";
 
 type ChangeAndDeleteWorkerProps = {
   worker: string;
   setHideChangeAndDeleteComponent: React.Dispatch<
     React.SetStateAction<boolean>
   >;
+  setAllWorkers: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
   worker,
   setHideChangeAndDeleteComponent,
+  setAllWorkers,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [showDeleteWin, setShowDeleteWin] = useState<boolean>(false);
@@ -23,6 +26,15 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
 
   const handleInnerDivClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
+  };
+
+  const deleteWorker = async () => {
+    try {
+      const response = await deleteWorkerInBackend(worker);
+      setAllWorkers(response.data.allWorkers);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -67,7 +79,10 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
               Are you sure?
             </h1>
             <div className="flex flex-col sm:flex-row justify-evenly ">
-              <button className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-red-500 hover:bg-red-600 text-white">
+              <button
+                className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-red-500 hover:bg-red-600 text-white"
+                onClick={deleteWorker}
+              >
                 Delete
               </button>
               <button

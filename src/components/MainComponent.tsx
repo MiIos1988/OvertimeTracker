@@ -159,6 +159,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         <ChangeAndDeleteWorker
           worker={clickWorker}
           setHideChangeAndDeleteComponent={setHideChangeAndDeleteComponent}
+          setAllWorkers={setAllWorkers}
         />
       )}
     </div>
