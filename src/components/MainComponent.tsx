@@ -20,8 +20,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [tokenId, setTokenId] = useState<string | null>(null);
   const [inputWorker, setInputWorker] = useState<string>("");
   const [allWorkers, setAllWorkers] = useState<string[]>([]);
-  const [clickWorker, setClickWorker] = useState<string>("")
-  const [hideChangeAndDeleteComponent, setHideChangeAndDeleteComponent] = useState<boolean>(true)
+  const [clickWorker, setClickWorker] = useState<string>("");
+  const [hideChangeAndDeleteComponent, setHideChangeAndDeleteComponent] =
+    useState<boolean>(true);
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
@@ -82,8 +83,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
 
   const openChangeAndDeleteWin = (worker: string) => {
     setClickWorker(worker);
-    setHideChangeAndDeleteComponent(false)
-  }
+    setHideChangeAndDeleteComponent(false);
+  };
 
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
@@ -121,7 +122,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                   />
                 </div>
                 <div className="md:flex block flex-grow justify-between">
-                  <div className="flex items-center text-xl font-medium hover:font-bold cursor-pointer" onClick={() => openChangeAndDeleteWin(worker)}>
+                  <div
+                    className="flex items-center text-xl font-medium hover:font-bold cursor-pointer"
+                    onClick={() => openChangeAndDeleteWin(worker)}
+                  >
                     {worker}
                   </div>
                   <div>
@@ -151,10 +155,12 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         pauseOnHover
         theme="colored"
       />
-      {
-        !hideChangeAndDeleteComponent && <ChangeAndDeleteWorker worker={clickWorker} setHideChangeAndDeleteComponent={setHideChangeAndDeleteComponent}/>
-      }
-      
+      {!hideChangeAndDeleteComponent && (
+        <ChangeAndDeleteWorker
+          worker={clickWorker}
+          setHideChangeAndDeleteComponent={setHideChangeAndDeleteComponent}
+        />
+      )}
     </div>
   );
 };
