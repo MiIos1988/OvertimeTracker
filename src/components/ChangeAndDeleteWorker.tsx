@@ -43,8 +43,9 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
           >
             Delete worker
           </button>
-          <button className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-yellow-500 hover:bg-yellow-600 text-white"
-          onClick={() => setShowChangeWin(true)}
+          <button
+            className="text-xl font-medium py-1.5 px-5 mb-3 rounded-md bg-yellow-500 hover:bg-yellow-600 text-white"
+            onClick={() => setShowChangeWin(true)}
           >
             Change name
           </button>
