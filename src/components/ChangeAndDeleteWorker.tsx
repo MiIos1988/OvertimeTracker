@@ -32,6 +32,8 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
     try {
       const response = await deleteWorkerInBackend(worker);
       setAllWorkers(response.data.allWorkers);
+      setShowDeleteWin(false);
+      setHideChangeAndDeleteComponent(true)
     } catch (error) {
       console.log(error);
     }
