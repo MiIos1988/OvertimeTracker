@@ -39,6 +39,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     }
   };
 
+   const changeImage = () => {
+    console.log("Change img")
+   }
+
   useEffect(() => {
     if (user) {
       const accessToken = `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_USER_POOLS}.${user.userId}.accessToken`;
@@ -114,7 +118,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           return (
             <div key={index}>
               <div className="flex items-center py-2 hover:bg-gray-100">
-                <div className="px-3">
+                <div className="px-3" onClick={changeImage}>
                   <img
                     src={userImg}
                     alt="Change image"
