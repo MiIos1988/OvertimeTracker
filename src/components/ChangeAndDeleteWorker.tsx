@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { deleteWorkerInBackend } from "../service/service";
+import { changeWorkerName, deleteWorkerInBackend } from "../service/service";
 
 type ChangeAndDeleteWorkerProps = {
   worker: string;
@@ -17,6 +17,7 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [showDeleteWin, setShowDeleteWin] = useState<boolean>(false);
   const [showChangeWin, setShowChangeWin] = useState<boolean>(false);
+  const [changeName, setChangeName] = useState<string>(worker)
 
   useEffect(() => {
     if (inputRef.current) {
@@ -38,6 +39,13 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
       console.log(error);
     }
   };
+  
+  const nameWorkerChange = async () => {
+    const response = await changeWorkerName({nameBeforeChange: worker, nameAfterChange: changeName});
+    setAllWorkers(response.data.allWorkers);
+    setShowChangeWin(false);
+    setHideChangeAndDeleteComponent(true);
+  }
 
   return (
     <div
@@ -108,10 +116,11 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
               <input
                 className="w-full p-2 shadow-xl text-lg"
                 type="text"
-                placeholder="Change name"
+                value={changeName}
                 ref={inputRef}
+                onChange={(e) => setChangeName(e.target.value)}
               />
-              <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 ">
+              <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 " onClick={nameWorkerChange}>
                 Change
               </button>
             </div>
