@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import userImg from "../assets/img/userImg.png";
 import ChangeAndDeleteWorker from "./ChangeAndDeleteWorker";
+import ChangeImageWorker from "./ChangeImageWorker";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -23,6 +24,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [clickWorker, setClickWorker] = useState<string>("");
   const [hideChangeAndDeleteComponent, setHideChangeAndDeleteComponent] =
     useState<boolean>(true);
+  const [hideChangeImageComponent, setHideChangeImageComponent] = useState<boolean>(true)
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
@@ -166,6 +168,11 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           setAllWorkers={setAllWorkers}
         />
       )}
+      {
+        hideChangeImageComponent && (
+          <ChangeImageWorker worker={clickWorker}/>
+        )
+      }
     </div>
   );
 };
