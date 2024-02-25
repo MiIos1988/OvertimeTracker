@@ -14,3 +14,5 @@ export const createWorker = (worker: string) => axios.post("/manager/create-work
 export const deleteWorkerInBackend = (worker: string) => axios.delete("/manager/delete-worker", {data: {workerForDelete: worker}});
 
 export const changeWorkerName = (workerName: ChangeWorkerName) => axios.put("/manager/change-worker-name", workerName);
+
+export const changeImage = (image: FormData) => axios.post("/aws-s3/change-image", {image});
