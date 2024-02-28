@@ -41,8 +41,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     }
   };
 
-   const changeImage = () => {
-    console.log("Change img")
+   const changeImage = (worker: string) => {
+    setClickWorker(worker);
    }
 
   useEffect(() => {
@@ -120,7 +120,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           return (
             <div key={index}>
               <div className="flex items-center py-2 hover:bg-gray-100">
-                <div className="px-3" onClick={changeImage}>
+                <div className="px-3" onClick={() => changeImage(worker)}>
                   <img
                     src={userImg}
                     alt="Change image"

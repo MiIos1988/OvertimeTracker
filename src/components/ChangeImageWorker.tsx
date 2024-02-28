@@ -16,6 +16,7 @@ const ChangeImageWorker = ({ worker }: { worker: string }) => {
     if (image) {
       const data = new FormData();
       data.append("image", image);
+      data.append("worker", worker);
       try {
         const response = await changeImage(data);
         
