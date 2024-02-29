@@ -42,7 +42,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   };
 
    const changeImage = (worker: string) => {
-    setClickWorker(worker);
+    setClickWorker(worker)
    }
 
   useEffect(() => {
