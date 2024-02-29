@@ -42,7 +42,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   };
 
    const changeImage = (worker: string) => {
-    setClickWorker(worker)
+    setClickWorker(worker);
+    setHideChangeImageComponent(false);
    }
 
   useEffect(() => {
@@ -125,6 +126,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                     src={userImg}
                     alt="Change image"
                     className="w-10 cursor-pointer"
+                    
                   />
                 </div>
                 <div className="md:flex block flex-grow justify-between">
@@ -169,8 +171,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         />
       )}
       {
-        hideChangeImageComponent && (
-          <ChangeImageWorker worker={clickWorker}/>
+        !hideChangeImageComponent && (
+          <ChangeImageWorker worker={clickWorker} setHideChangeImageComponent={setHideChangeImageComponent}/>
         )
       }
     </div>

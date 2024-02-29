@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import userImg from "../assets/img/userImg.png";
 import { changeImage } from "../service/service";
 
-const ChangeImageWorker = ({ worker }: { worker: string }) => {
+type ChangeImageWorkerProps = {
+  worker: string;
+  setHideChangeImageComponent: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
+  worker,
+  setHideChangeImageComponent,
+}) => {
   const [image, setImage] = useState<File | null>(null);
   const [urlImage, setUrlImage] = useState<string>("");
 
@@ -19,10 +27,7 @@ const ChangeImageWorker = ({ worker }: { worker: string }) => {
       data.append("worker", worker);
       try {
         const response = await changeImage(data);
-        
-      } catch (error) {
-        
-      }
+      } catch (error) {}
     }
   };
   return (
@@ -54,6 +59,12 @@ const ChangeImageWorker = ({ worker }: { worker: string }) => {
             Confirm
           </button>
         )}
+        <button
+          className="text-xl font-medium absolute top-5 right-5"
+          onClick={() => setHideChangeImageComponent(true)}
+        >
+          x
+        </button>
       </div>
     </div>
   );
