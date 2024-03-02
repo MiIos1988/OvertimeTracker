@@ -15,12 +15,16 @@ type MainComponentProps = {
   user?: { username?: string; userId?: string };
   onSignOut: (() => void) | undefined;
 };
+type AllWorkers = {
+  name: string,
+  image: string
+}
 
 const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [tokenAccess, setTokenAccess] = useState<string | null>(null);
   const [tokenId, setTokenId] = useState<string | null>(null);
   const [inputWorker, setInputWorker] = useState<string>("");
-  const [allWorkers, setAllWorkers] = useState<string[]>([]);
+  const [allWorkers, setAllWorkers] = useState<AllWorkers[]>([]);
   const [clickWorker, setClickWorker] = useState<string>("");
   const [hideChangeAndDeleteComponent, setHideChangeAndDeleteComponent] =
     useState<boolean>(true);
@@ -121,9 +125,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           return (
             <div key={index}>
               <div className="flex items-center py-2 hover:bg-gray-100">
-                <div className="px-3" onClick={() => changeImage(worker)}>
+                <div className="px-3" onClick={() => changeImage(worker.name)}>
                   <img
-                    src={userImg}
+                    src={worker.image}
                     alt="Change image"
                     className="w-10 cursor-pointer"
                     
@@ -132,9 +136,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                 <div className="md:flex block flex-grow justify-between">
                   <div
                     className="flex items-center text-xl font-medium hover:font-bold cursor-pointer"
-                    onClick={() => openChangeAndDeleteWin(worker)}
+                    onClick={() => openChangeAndDeleteWin(worker.name)}
                   >
-                    {worker}
+                    {worker.name}
                   </div>
                   <div>
                     <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white">

@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { changeWorkerName, deleteWorkerInBackend } from "../service/service";
 
+type AllWorkers = {
+  name: string,
+  image: string
+}
 type ChangeAndDeleteWorkerProps = {
   worker: string;
   setHideChangeAndDeleteComponent: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  setAllWorkers: React.Dispatch<React.SetStateAction<string[]>>;
+  setAllWorkers: React.Dispatch<React.SetStateAction<AllWorkers[]>>;
 };
 
 const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
