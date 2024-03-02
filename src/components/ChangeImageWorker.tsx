@@ -27,7 +27,11 @@ const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
       data.append("worker", worker);
       try {
         const response = await changeImage(data);
-      } catch (error) {}
+        setHideChangeImageComponent(true)
+        console.log(response.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
   return (
