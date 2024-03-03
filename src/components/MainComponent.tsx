@@ -127,9 +127,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
               <div className="flex items-center py-2 hover:bg-gray-100">
                 <div className="px-3" onClick={() => changeImage(worker.name)}>
                   <img
-                    src={worker.image}
-                    alt="Change image"
-                    className="w-10 cursor-pointer"
+                    src={worker && worker.image ? worker.image : userImg}
+                    className="w-10 h-10 bg-cover cursor-pointer rounded-full"
                     
                   />
                 </div>
