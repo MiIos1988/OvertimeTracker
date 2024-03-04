@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { changeWorkerName, deleteWorkerInBackend } from "../service/service";
 
 type AllWorkers = {
-  name: string,
+  nameWorker: string,
   image: string
 }
 type ChangeAndDeleteWorkerProps = {

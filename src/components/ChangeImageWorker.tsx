@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import userImg from "../assets/img/userImg.png";
 import { changeImage } from "../service/service";
 
+type AllWorkers = {
+  nameWorker: string;
+  image: string;
+};
 type ChangeImageWorkerProps = {
   worker: string;
   setHideChangeImageComponent: React.Dispatch<React.SetStateAction<boolean>>;
+  setAllWorkers: React.Dispatch<React.SetStateAction<AllWorkers[]>>;
 };
 
 const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
   worker,
   setHideChangeImageComponent,
+  setAllWorkers,
 }) => {
   const [image, setImage] = useState<File | null>(null);
   const [urlImage, setUrlImage] = useState<string>("");
@@ -27,10 +33,10 @@ const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
       data.append("worker", worker);
       try {
         const response = await changeImage(data);
-        setHideChangeImageComponent(true)
-        console.log(response.data)
+        setHideChangeImageComponent(true);
+        setAllWorkers(response.data.allWorkers);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
   };

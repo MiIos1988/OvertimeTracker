@@ -16,9 +16,9 @@ type MainComponentProps = {
   onSignOut: (() => void) | undefined;
 };
 type AllWorkers = {
-  name: string,
-  image: string
-}
+  nameWorker: string;
+  image: string;
+};
 
 const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [tokenAccess, setTokenAccess] = useState<string | null>(null);
@@ -28,7 +28,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [clickWorker, setClickWorker] = useState<string>("");
   const [hideChangeAndDeleteComponent, setHideChangeAndDeleteComponent] =
     useState<boolean>(true);
-  const [hideChangeImageComponent, setHideChangeImageComponent] = useState<boolean>(true)
+  const [hideChangeImageComponent, setHideChangeImageComponent] =
+    useState<boolean>(true);
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
@@ -45,10 +46,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     }
   };
 
-   const changeImage = (worker: string) => {
+  const changeImage = (worker: string) => {
     setClickWorker(worker);
     setHideChangeImageComponent(false);
-   }
+  };
 
   useEffect(() => {
     if (user) {
@@ -125,19 +126,18 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           return (
             <div key={index}>
               <div className="flex items-center py-2 hover:bg-gray-100">
-                <div className="px-3" onClick={() => changeImage(worker.name)}>
+                <div className="px-3" onClick={() => changeImage(worker.nameWorker)}>
                   <img
                     src={worker && worker.image ? worker.image : userImg}
                     className="w-10 h-10 bg-cover cursor-pointer rounded-full"
-                    
                   />
                 </div>
                 <div className="md:flex block flex-grow justify-between">
                   <div
                     className="flex items-center text-xl font-medium hover:font-bold cursor-pointer"
-                    onClick={() => openChangeAndDeleteWin(worker.name)}
+                    onClick={() => openChangeAndDeleteWin(worker.nameWorker)}
                   >
-                    {worker.name}
+                    {worker.nameWorker}
                   </div>
                   <div>
                     <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white">
@@ -173,11 +173,13 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           setAllWorkers={setAllWorkers}
         />
       )}
-      {
-        !hideChangeImageComponent && (
-          <ChangeImageWorker worker={clickWorker} setHideChangeImageComponent={setHideChangeImageComponent}/>
-        )
-      }
+      {!hideChangeImageComponent && (
+        <ChangeImageWorker
+          worker={clickWorker}
+          setHideChangeImageComponent={setHideChangeImageComponent}
+          setAllWorkers={setAllWorkers}
+        />
+      )}
     </div>
   );
 };
