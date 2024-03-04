@@ -2,26 +2,28 @@ import React, { useEffect, useRef, useState } from "react";
 import { changeWorkerName, deleteWorkerInBackend } from "../service/service";
 
 type AllWorkers = {
-  nameWorker: string,
-  image: string
-}
+  nameWorker: string;
+  image: string;
+};
 type ChangeAndDeleteWorkerProps = {
   worker: string;
   setHideChangeAndDeleteComponent: React.Dispatch<
     React.SetStateAction<boolean>
   >;
   setAllWorkers: React.Dispatch<React.SetStateAction<AllWorkers[]>>;
+  onSignOut: (() => void) | undefined;
 };
 
 const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
   worker,
   setHideChangeAndDeleteComponent,
   setAllWorkers,
+  onSignOut,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [showDeleteWin, setShowDeleteWin] = useState<boolean>(false);
   const [showChangeWin, setShowChangeWin] = useState<boolean>(false);
-  const [changeName, setChangeName] = useState<string>(worker)
+  const [changeName, setChangeName] = useState<string>(worker);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -38,18 +40,23 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
       const response = await deleteWorkerInBackend(worker);
       setAllWorkers(response.data.allWorkers);
       setShowDeleteWin(false);
-      setHideChangeAndDeleteComponent(true)
+      setHideChangeAndDeleteComponent(true);
     } catch (error) {
-      console.log(error);
+      if (onSignOut) {
+        onSignOut();
+      }
     }
   };
-  
+
   const nameWorkerChange = async () => {
-    const response = await changeWorkerName({nameBeforeChange: worker, nameAfterChange: changeName});
+    const response = await changeWorkerName({
+      nameBeforeChange: worker,
+      nameAfterChange: changeName,
+    });
     setAllWorkers(response.data.allWorkers);
     setShowChangeWin(false);
     setHideChangeAndDeleteComponent(true);
-  }
+  };
 
   return (
     <div
@@ -124,7 +131,10 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
                 ref={inputRef}
                 onChange={(e) => setChangeName(e.target.value)}
               />
-              <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 " onClick={nameWorkerChange}>
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white p-2 "
+                onClick={nameWorkerChange}
+              >
                 Change
               </button>
             </div>

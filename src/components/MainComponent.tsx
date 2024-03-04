@@ -36,12 +36,18 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   };
   const addWorkerBtn = async () => {
     if (inputWorker) {
-      const response = await createWorker(inputWorker);
+      try {
+        const response = await createWorker(inputWorker);
       setInputWorker("");
       if (response.data === "Worker exist") {
         toast.error("Worker exist!!!");
       } else {
         setAllWorkers(response.data.allWorkers);
+      }
+      } catch (error) {
+        if(onSignOut){
+          onSignOut();
+        }
       }
     }
   };
@@ -84,10 +90,11 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           } else {
             setAllWorkers(response.data.allWorkers);
           }
-          console.log("Success");
         }
       } catch (err) {
-        console.log("Error", err);
+        if(onSignOut){
+          onSignOut();
+        }
       }
     };
     fetchData();
@@ -171,6 +178,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           worker={clickWorker}
           setHideChangeAndDeleteComponent={setHideChangeAndDeleteComponent}
           setAllWorkers={setAllWorkers}
+          onSignOut={onSignOut}
         />
       )}
       {!hideChangeImageComponent && (
@@ -178,6 +186,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           worker={clickWorker}
           setHideChangeImageComponent={setHideChangeImageComponent}
           setAllWorkers={setAllWorkers}
+          onSignOut={onSignOut}
         />
       )}
     </div>

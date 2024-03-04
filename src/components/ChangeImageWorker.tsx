@@ -10,12 +10,14 @@ type ChangeImageWorkerProps = {
   worker: string;
   setHideChangeImageComponent: React.Dispatch<React.SetStateAction<boolean>>;
   setAllWorkers: React.Dispatch<React.SetStateAction<AllWorkers[]>>;
+  onSignOut: (() => void) | undefined;
 };
 
 const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
   worker,
   setHideChangeImageComponent,
   setAllWorkers,
+  onSignOut,
 }) => {
   const [image, setImage] = useState<File | null>(null);
   const [urlImage, setUrlImage] = useState<string>("");
@@ -58,6 +60,7 @@ const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
             type="file"
             name="file"
             className="hidden"
+            accept="image/jpeg, image/png, image/gif"
             onChange={handleFileChange}
           />
         </label>
