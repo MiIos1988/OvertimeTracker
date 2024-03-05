@@ -42,9 +42,7 @@ const ChangeAndDeleteWorker: React.FC<ChangeAndDeleteWorkerProps> = ({
       setShowDeleteWin(false);
       setHideChangeAndDeleteComponent(true);
     } catch (error) {
-      if (onSignOut) {
-        onSignOut();
-      }
+      onSignOut && onSignOut();
     }
   };
 

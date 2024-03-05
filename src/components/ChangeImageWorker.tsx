@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import userImg from "../assets/img/userImg.png";
 import { changeImage } from "../service/service";
 
 type AllWorkers = {
@@ -8,6 +7,7 @@ type AllWorkers = {
 };
 type ChangeImageWorkerProps = {
   worker: string;
+  workerImg: string;
   setHideChangeImageComponent: React.Dispatch<React.SetStateAction<boolean>>;
   setAllWorkers: React.Dispatch<React.SetStateAction<AllWorkers[]>>;
   onSignOut: (() => void) | undefined;
@@ -15,6 +15,7 @@ type ChangeImageWorkerProps = {
 
 const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
   worker,
+  workerImg,
   setHideChangeImageComponent,
   setAllWorkers,
   onSignOut,
@@ -38,7 +39,7 @@ const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
         setHideChangeImageComponent(true);
         setAllWorkers(response.data.allWorkers);
       } catch (error) {
-        console.log(error);
+        onSignOut && onSignOut();
       }
     }
   };
@@ -47,7 +48,7 @@ const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
       <div className="relative bg-white p-8 rounded-lg w-11/12 lg:w-3/12 flex flex-col items-center">
         <h1 className="text-center text-2xl font-medium pb-3">{worker}</h1>
         <img
-          src={urlImage ? urlImage : userImg}
+          src={urlImage ? urlImage : workerImg}
           className="w-40 h-40 rounded-full bg-cover mb-5"
         />
         <label

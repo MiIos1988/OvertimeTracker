@@ -26,6 +26,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [inputWorker, setInputWorker] = useState<string>("");
   const [allWorkers, setAllWorkers] = useState<AllWorkers[]>([]);
   const [clickWorker, setClickWorker] = useState<string>("");
+  const [clickWorkerImage, setClickWorkerImage] = useState<string>("");
   const [hideChangeAndDeleteComponent, setHideChangeAndDeleteComponent] =
     useState<boolean>(true);
   const [hideChangeImageComponent, setHideChangeImageComponent] =
@@ -45,9 +46,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         setAllWorkers(response.data.allWorkers);
       }
       } catch (error) {
-        if(onSignOut){
-          onSignOut();
-        }
+        onSignOut && onSignOut();
       }
     }
   };
@@ -92,13 +91,17 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           }
         }
       } catch (err) {
-        if(onSignOut){
-          onSignOut();
-        }
+        onSignOut && onSignOut();
       }
     };
     fetchData();
   }, [tokenAccess]);
+  
+  const changeImageFun = (nameWorker: string) => {
+    changeImage(nameWorker);
+    const workerObj = allWorkers.find(worker => worker.nameWorker === nameWorker)
+    workerObj && setClickWorkerImage(workerObj.image)
+  }
 
   const openChangeAndDeleteWin = (worker: string) => {
     setClickWorker(worker);
@@ -133,7 +136,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           return (
             <div key={index}>
               <div className="flex items-center py-2 hover:bg-gray-100">
-                <div className="px-3" onClick={() => changeImage(worker.nameWorker)}>
+                <div className="px-3" onClick={() =>changeImageFun(worker.nameWorker)}>
                   <img
                     src={worker && worker.image ? worker.image : userImg}
                     className="w-10 h-10 bg-cover cursor-pointer rounded-full"
@@ -184,6 +187,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
       {!hideChangeImageComponent && (
         <ChangeImageWorker
           worker={clickWorker}
+          workerImg={clickWorkerImage}
           setHideChangeImageComponent={setHideChangeImageComponent}
           setAllWorkers={setAllWorkers}
           onSignOut={onSignOut}
