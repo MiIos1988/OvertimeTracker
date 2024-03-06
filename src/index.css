@@ -11,6 +11,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url('./assets/img/backgroundImg.jpg');
   background-size: cover;
+
+  .custom-number-input::-webkit-outer-spin-button,
+  .custom-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+  .custom-number-input:focus {
+  outline: none;
+}
 }
 
 code {

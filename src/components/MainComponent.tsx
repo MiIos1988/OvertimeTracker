@@ -114,6 +114,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   };
 
   const openAddOvertimeWin = (worker: string) => {
+    setClickWorker(worker);
     setHideAddOvertimeComponent(false);
     console.log(worker)
   };
@@ -208,7 +209,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           onSignOut={onSignOut}
         />
       )}
-      {!hideAddOvertimeComponent && <AddOvertimeComponent />}
+      {!hideAddOvertimeComponent && <AddOvertimeComponent worker={clickWorker}/>}
     </div>
   );
 };
