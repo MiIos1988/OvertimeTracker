@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import userImg from "../assets/img/userImg.png";
 import ChangeAndDeleteWorker from "./ChangeAndDeleteWorker";
 import ChangeImageWorker from "./ChangeImageWorker";
+import AddOvertimeComponent from "./AddOvertimeComponent";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -31,6 +32,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     useState<boolean>(true);
   const [hideChangeImageComponent, setHideChangeImageComponent] =
     useState<boolean>(true);
+  const [hideAddOvertimeComponent, setHideAddOvertimeComponent] =
+    useState<boolean>(true);
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputWorker(e.target.value);
@@ -39,12 +42,12 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     if (inputWorker) {
       try {
         const response = await createWorker(inputWorker);
-      setInputWorker("");
-      if (response.data === "Worker exist") {
-        toast.error("Worker exist!!!");
-      } else {
-        setAllWorkers(response.data.allWorkers);
-      }
+        setInputWorker("");
+        if (response.data === "Worker exist") {
+          toast.error("Worker exist!!!");
+        } else {
+          setAllWorkers(response.data.allWorkers);
+        }
       } catch (error) {
         onSignOut && onSignOut();
       }
@@ -96,16 +99,23 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     };
     fetchData();
   }, [tokenAccess]);
-  
+
   const changeImageFun = (nameWorker: string) => {
     changeImage(nameWorker);
-    const workerObj = allWorkers.find(worker => worker.nameWorker === nameWorker)
-    workerObj && setClickWorkerImage(workerObj.image)
-  }
+    const workerObj = allWorkers.find(
+      (worker) => worker.nameWorker === nameWorker
+    );
+    workerObj && setClickWorkerImage(workerObj.image);
+  };
 
   const openChangeAndDeleteWin = (worker: string) => {
     setClickWorker(worker);
     setHideChangeAndDeleteComponent(false);
+  };
+
+  const openAddOvertimeWin = (worker: string) => {
+    setHideAddOvertimeComponent(false);
+    console.log(worker)
   };
 
   return (
@@ -136,7 +146,10 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           return (
             <div key={index}>
               <div className="flex items-center py-2 hover:bg-gray-100">
-                <div className="px-3" onClick={() =>changeImageFun(worker.nameWorker)}>
+                <div
+                  className="px-3"
+                  onClick={() => changeImageFun(worker.nameWorker)}
+                >
                   <img
                     src={worker && worker.image ? worker.image : userImg}
                     className="w-10 h-10 bg-cover cursor-pointer rounded-full"
@@ -150,7 +163,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                     {worker.nameWorker}
                   </div>
                   <div>
-                    <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white">
+                    <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white" 
+                    onClick={() => openAddOvertimeWin(worker.nameWorker)}
+                    >
                       Add overtime
                     </button>
                     <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white">
@@ -193,6 +208,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           onSignOut={onSignOut}
         />
       )}
+      {!hideAddOvertimeComponent && <AddOvertimeComponent />}
     </div>
   );
 };
