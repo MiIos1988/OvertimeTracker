@@ -119,7 +119,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
       >
         Sign out
       </button>
-      <div className="flex w-11/12 xl:w-2/4 my-8">
+      <div className="flex w-11/12 xl:w-7/12 2xl:w-2/4 my-8">
         <input
           className="w-full p-2 shadow-xl text-lg"
           type="text"
@@ -131,7 +131,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           Add
         </button>
       </div>
-      <div className="flex-1 w-11/12 xl:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14 overflow-auto">
+      <div className="flex-1 w-11/12 xl:w-7/12 2xl:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14 overflow-auto">
         {allWorkers.map((worker, index) => {
           return (
             <div key={index}>
@@ -142,9 +142,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                     className="w-10 h-10 bg-cover cursor-pointer rounded-full"
                   />
                 </div>
-                <div className="md:flex block flex-grow justify-between">
+                <div className="md:flex block flex-grow justify-between ">
                   <div
-                    className="flex items-center text-xl font-medium hover:font-bold cursor-pointer"
+                    className="flex items-center text-xl font-medium hover:font-bold cursor-pointer overflow-x-auto"
                     onClick={() => openChangeAndDeleteWin(worker.nameWorker)}
                   >
                     {worker.nameWorker}
