@@ -116,7 +116,6 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const openAddOvertimeWin = (worker: string) => {
     setClickWorker(worker);
     setHideAddOvertimeComponent(false);
-    console.log(worker)
   };
 
   return (
@@ -164,8 +163,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                     {worker.nameWorker}
                   </div>
                   <div>
-                    <button className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white" 
-                    onClick={() => openAddOvertimeWin(worker.nameWorker)}
+                    <button
+                      className="md:mr-12 mr-2 py-1.5 md:px-5 px-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white"
+                      onClick={() => openAddOvertimeWin(worker.nameWorker)}
                     >
                       Add overtime
                     </button>
@@ -209,7 +209,12 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           onSignOut={onSignOut}
         />
       )}
-      {!hideAddOvertimeComponent && <AddOvertimeComponent worker={clickWorker}/>}
+      {!hideAddOvertimeComponent && (
+        <AddOvertimeComponent
+          worker={clickWorker}
+          setHideAddOvertimeComponent={setHideAddOvertimeComponent}
+        />
+      )}
     </div>
   );
 };

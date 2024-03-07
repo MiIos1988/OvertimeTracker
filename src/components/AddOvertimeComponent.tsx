@@ -4,13 +4,24 @@ import "react-datepicker/dist/react-datepicker.css";
 
 type AddOvertimeComponentProps = {
   worker: string;
+  setHideAddOvertimeComponent: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
   worker,
+  setHideAddOvertimeComponent,
 }) => {
   const [inputValue, setInputValue] = useState<number>(1);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  const sendOvertimeData = () => {
+    const data = {
+      worker,
+      hours: inputValue,
+      date: selectedDate,
+    };
+    console.log(data);
+  };
 
   return (
     <div className="absolute w-screen h-screen flex justify-center items-center bg-gray-800 bg-opacity-75">
@@ -49,11 +60,20 @@ const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
             />
           </div>
           <div className="w-36 h-10 text-center mx-auto">
-            <button className="h-full w-full py-1.5 px-10 rounded-md bg-blue-500 hover:bg-blue-600 text-white">
+            <button
+              className="h-full w-full py-1.5 px-10 rounded-md bg-blue-500 hover:bg-blue-600 text-white"
+              onClick={sendOvertimeData}
+            >
               Confirm
             </button>
           </div>
         </div>
+        <button
+          className="text-xl font-medium absolute top-5 right-5"
+          onClick={() => setHideAddOvertimeComponent(true)}
+        >
+          x
+        </button>
       </div>
     </div>
   );
