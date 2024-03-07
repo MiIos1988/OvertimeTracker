@@ -213,6 +213,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
         <AddOvertimeComponent
           worker={clickWorker}
           setHideAddOvertimeComponent={setHideAddOvertimeComponent}
+          onSignOut={onSignOut}
         />
       )}
     </div>

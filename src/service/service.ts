@@ -5,6 +5,12 @@ type ChangeWorkerName = {
     nameAfterChange: string
 }
 
+type HoursAndDate = {
+    hours: number,
+    date: Date,
+    worker: string
+}
+
 export const getTokenInLocalStorage = (token: string) => localStorage.getItem(token);
 
 export const createManager = (token: string) => axios.post("/manager/add-manager", {token});
@@ -16,3 +22,5 @@ export const deleteWorkerInBackend = (worker: string) => axios.delete("/manager/
 export const changeWorkerName = (workerName: ChangeWorkerName) => axios.put("/manager/change-worker-name", workerName);
 
 export const changeImage = (image: FormData) => axios.post("/aws-s3/change-image", image);
+
+export const SendHoursAndDate = (data: HoursAndDate) => axios.post("/manager/send-overtime-data", data);

@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { SendHoursAndDate } from "../service/service";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type AddOvertimeComponentProps = {
   worker: string;
   setHideAddOvertimeComponent: React.Dispatch<React.SetStateAction<boolean>>;
+  onSignOut: (() => void) | undefined;
 };
 
 const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
   worker,
   setHideAddOvertimeComponent,
+  onSignOut
 }) => {
   const [inputValue, setInputValue] = useState<number>(1);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  const sendOvertimeData = () => {
+  const sendOvertimeData = async () => {
     const data = {
       worker,
       hours: inputValue,
       date: selectedDate,
     };
-    console.log(data);
+    try {
+      await SendHoursAndDate(data);
+      setHideAddOvertimeComponent(true);
+      toast.success(`Add hours for ${worker}`);
+    } catch (error) {
+      onSignOut && onSignOut();
+    }
   };
 
   return (
