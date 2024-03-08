@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { SendHoursAndDate } from "../service/service";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 type AddOvertimeComponentProps = {
@@ -14,10 +14,18 @@ type AddOvertimeComponentProps = {
 const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
   worker,
   setHideAddOvertimeComponent,
-  onSignOut
+  onSignOut,
 }) => {
   const [inputValue, setInputValue] = useState<number>(1);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  const inputValueHours = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      Number(e.target.value) % 0.5 === 0
+        ? setInputValue(Number(e.target.value))
+        : setInputValue(Math.floor(Number(e.target.value)));
+    }
+  };
 
   const sendOvertimeData = async () => {
     const data = {
@@ -26,9 +34,11 @@ const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
       date: selectedDate,
     };
     try {
-      await SendHoursAndDate(data);
-      setHideAddOvertimeComponent(true);
-      toast.success(`Add hours for ${worker}`);
+      if (inputValue > 0) {
+        await SendHoursAndDate(data);
+        setHideAddOvertimeComponent(true);
+        toast.success(`Add hours for ${worker}`);
+      }
     } catch (error) {
       onSignOut && onSignOut();
     }
@@ -43,8 +53,7 @@ const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
             <button
               className="px-2 h-full w-10 text-2xl rounded-l-md bg-blue-500 hover:bg-blue-600 text-white"
               onClick={() =>
-                inputValue >= 0.5 &&
-                setInputValue((prevValue) => prevValue - 0.5)
+                inputValue >= 1 && setInputValue((prevValue) => prevValue - 0.5)
               }
             >
               -
@@ -52,8 +61,9 @@ const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
             <input
               type="number"
               value={inputValue}
+              step="0.5"
               className="h-full px-2 w-16 text-2xl text-center mx-auto border-2 border-blue-500 custom-number-input"
-              onChange={(e) => setInputValue(Number(e.target.value))}
+              onChange={inputValueHours}
             />
             <button
               className="h-full px-2 w-10 text-2xl rounded-r-md bg-blue-500 hover:bg-blue-600 text-white"
