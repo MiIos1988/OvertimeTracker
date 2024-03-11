@@ -16,19 +16,20 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
   setHideOvertimeReviewComponent,
   onSignOut,
 }) => {
-  const [selectedDate1, setSelectedDate1] = useState<Date>(new Date());
-  const [selectedDate2, setSelectedDate2] = useState<Date>(new Date());
+  const [selectedDateStart, setSelectedDateStart] = useState<Date>(new Date());
+  const [selectedDateEnd, setSelectedDateEnd] = useState<Date>(new Date());
 
   const sendOvertimeReviewData = async () => {
     const data = {
       worker,
-      date1: selectedDate1,
-      date2: selectedDate2,
+      startDate: selectedDateStart.toLocaleDateString(),
+      endDate: selectedDateEnd.toLocaleDateString(),
     };
+    console.log(data)
     try {
       await sendReviewData(data);
       setHideOvertimeReviewComponent(true);
-      toast.success(`Add hours for ${worker}`);
+      // toast.success(`Add hours for ${worker}`);
     } catch (error) {
       onSignOut && onSignOut();
     }
@@ -46,8 +47,8 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
             <h1 className="pr-2 text-gray-400 italic absolute left-[-48px] top-3">From:</h1>
             <DatePicker
               className="w-full text-xl p-1 border-2 border-gray-500 text-center mx-auto rounded-md"
-              selected={selectedDate1}
-              onChange={(date: Date) => setSelectedDate1(date)}
+              selected={selectedDateStart}
+              onChange={(date: Date) => setSelectedDateStart(date)}
               dateFormat="dd/MM/yyyy"
             />
           </div>
@@ -55,8 +56,8 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
             <h1 className="pr-2 text-gray-400 italic absolute left-[-28px] top-3">To:</h1>
             <DatePicker
               className="w-full text-xl p-1 border-2 border-gray-500 text-center mx-auto rounded-md"
-              selected={selectedDate2}
-              onChange={(date: Date) => setSelectedDate2(date)}
+              selected={selectedDateEnd}
+              onChange={(date: Date) => setSelectedDateEnd(date)}
               dateFormat="dd/MM/yyyy"
             />
           </div>

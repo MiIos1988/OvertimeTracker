@@ -13,8 +13,8 @@ type HoursAndDate = {
 
 type ReviewDate = {
     worker: string,
-    date1: Date,
-    date2: Date,
+    startDate: Date | string,
+    endDate: Date | string,
 }
 
 export const getTokenInLocalStorage = (token: string) => localStorage.getItem(token);
