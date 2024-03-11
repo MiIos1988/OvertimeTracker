@@ -11,6 +11,7 @@ import userImg from "../assets/img/userImg.png";
 import ChangeAndDeleteWorker from "./ChangeAndDeleteWorker";
 import ChangeImageWorker from "./ChangeImageWorker";
 import AddOvertimeComponent from "./AddOvertimeComponent";
+import OvertimeReview from "./OvertimeReview";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
@@ -33,6 +34,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const [hideChangeImageComponent, setHideChangeImageComponent] =
     useState<boolean>(true);
   const [hideAddOvertimeComponent, setHideAddOvertimeComponent] =
+    useState<boolean>(true);
+  const [hideOvertimeReviewComponent, setHideOvertimeReviewComponent] =
     useState<boolean>(true);
 
   const addWorkerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,6 +121,11 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
     setHideAddOvertimeComponent(false);
   };
 
+  const openOvertimeReviewWin = (worker: string) => {
+    setClickWorker(worker);
+    setHideOvertimeReviewComponent(false);
+  };
+
   return (
     <div className="h-screen w-screen relative flex flex-col  items-center ">
       <h1 className="sm:text-3xl text-2xl font-bold text-gray-600 mt-8 bg-white shadow-xl bg-opacity-40 px-2">
@@ -169,7 +177,9 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                     >
                       Add overtime
                     </button>
-                    <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white">
+                    <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white"
+                      onClick={() => openOvertimeReviewWin(worker.nameWorker)}
+                    >
                       Show overtime
                     </button>
                   </div>
@@ -216,6 +226,15 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           onSignOut={onSignOut}
         />
       )}
+      {
+        !hideOvertimeReviewComponent && (
+          <OvertimeReview
+          worker={clickWorker}
+          setHideOvertimeReviewComponent={setHideOvertimeReviewComponent}
+          onSignOut={onSignOut}
+          />
+        )
+      }
     </div>
   );
 };

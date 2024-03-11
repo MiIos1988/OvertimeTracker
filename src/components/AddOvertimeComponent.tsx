@@ -48,7 +48,7 @@ const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
     <div className="absolute w-screen h-screen flex justify-center items-center bg-gray-800 bg-opacity-75">
       <div className="relative bg-white p-8 pt-2 rounded-lg w-11/12 lg:w-7/12 2xl:w-2/4">
         <h1 className="text-2xl font-medium pb-2 text-gray-400 italic">Enter the hours and date:</h1>
-        <h1 className="text-center text-2xl font-medium pb-5">{worker}</h1>
+        <h1 className="text-center text-3xl font-medium pb-5">{worker}</h1>
         <div className="sm:flex block justify-between flex-grow">
           <div className="w-36 h-10 text-center mx-auto ">
             <button

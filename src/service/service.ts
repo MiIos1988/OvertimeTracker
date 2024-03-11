@@ -11,6 +11,12 @@ type HoursAndDate = {
     worker: string
 }
 
+type ReviewDate = {
+    worker: string,
+    date1: Date,
+    date2: Date,
+}
+
 export const getTokenInLocalStorage = (token: string) => localStorage.getItem(token);
 
 export const createManager = (token: string) => axios.post("/manager/add-manager", {token});
@@ -24,3 +30,5 @@ export const changeWorkerName = (workerName: ChangeWorkerName) => axios.put("/ma
 export const changeImage = (image: FormData) => axios.post("/aws-s3/change-image", image);
 
 export const SendHoursAndDate = (data: HoursAndDate) => axios.post("/overtime/send-overtime-data", data);
+
+export const sendReviewData = (data: ReviewDate) => axios.post("/overtime/send-overtime-review-data", data);
