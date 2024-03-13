@@ -22,14 +22,14 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
   const sendOvertimeReviewData = async () => {
     const data = {
       worker,
-      startDate: selectedDateStart.toLocaleDateString(),
-      endDate: selectedDateEnd.toLocaleDateString(),
+      startDate: selectedDateStart.toISOString(),
+      endDate: selectedDateEnd.toISOString(),
     };
-    console.log(data)
+
     try {
-      await sendReviewData(data);
+      const dataOvertime = await sendReviewData(data);
       setHideOvertimeReviewComponent(true);
-      // toast.success(`Add hours for ${worker}`);
+      console.log(dataOvertime.data.overtimeData);
     } catch (error) {
       onSignOut && onSignOut();
     }
@@ -44,7 +44,9 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
         <h1 className="text-center text-3xl font-medium pb-5">{worker}</h1>
         <div className="sm:flex block justify-between flex-grow">
           <div className="w-36 text-center mx-auto sm:my-0 my-3 relative">
-            <h1 className="pr-2 text-gray-400 italic absolute left-[-48px] top-3">From:</h1>
+            <h1 className="pr-2 text-gray-400 italic absolute left-[-48px] top-3">
+              From:
+            </h1>
             <DatePicker
               className="w-full text-xl p-1 border-2 border-gray-500 text-center mx-auto rounded-md"
               selected={selectedDateStart}
@@ -53,7 +55,9 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
             />
           </div>
           <div className="w-36 text-center mx-auto sm:my-0 my-3 relative">
-            <h1 className="pr-2 text-gray-400 italic absolute left-[-28px] top-3">To:</h1>
+            <h1 className="pr-2 text-gray-400 italic absolute left-[-28px] top-3">
+              To:
+            </h1>
             <DatePicker
               className="w-full text-xl p-1 border-2 border-gray-500 text-center mx-auto rounded-md"
               selected={selectedDateEnd}
