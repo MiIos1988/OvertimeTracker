@@ -32,3 +32,5 @@ export const changeImage = (image: FormData) => axios.post("/aws-s3/change-image
 export const SendHoursAndDate = (data: HoursAndDate) => axios.post("/overtime/send-overtime-data", data);
 
 export const sendReviewData = (data: ReviewDate) => axios.post("/overtime/send-overtime-review-data", data);
+
+export const deleteOvertimeHours = (id: string) => axios.delete(`/overtime/delete-overtime-hours${id}`);

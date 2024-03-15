@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { sendReviewData } from "../service/service";
+import { deleteOvertimeHours, sendReviewData } from "../service/service";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,7 +24,7 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
   const [selectedDateStart, setSelectedDateStart] = useState<Date>(new Date());
   const [selectedDateEnd, setSelectedDateEnd] = useState<Date>(new Date());
   const [allOvertime, setAllOvertime] = useState<OvertimeObj[]>([]);
-  const [showAllOvertime, setShowAllOvertime] = useState<boolean>(false)
+  const [showAllOvertime, setShowAllOvertime] = useState<boolean>(false);
 
   const sendOvertimeReviewData = async () => {
     const data = {
@@ -35,12 +35,19 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
 
     try {
       const dataOvertime = await sendReviewData(data);
-      // setHideOvertimeReviewComponent(true);
-      console.log(dataOvertime.data.overtimeData);
       setAllOvertime(dataOvertime.data.overtimeData);
+      setShowAllOvertime(true);
     } catch (error) {
       onSignOut && onSignOut();
     }
+  };
+
+  const deleteOvertime = async(id: string) => {
+    const deleteHours =  await deleteOvertimeHours(id);
+    const deleteId = deleteHours.data.id;
+    const newAllOvertime = allOvertime.filter(obj => obj.id !== deleteId);
+    setAllOvertime(newAllOvertime);
+    
   };
 
   return (
@@ -89,41 +96,47 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
           x
         </button>
       </div>
-      {
-        showAllOvertime && (
-          <div className="absolute w-screen h-screen flex justify-center items-center bg-gray-800 bg-opacity-75 ">
-          <div className="relative bg-white p-8 rounded-lg w-11/12 lg:w-5/12">
+      {showAllOvertime && (
+        <div className="absolute w-screen h-screen flex justify-center items-center bg-gray-800 bg-opacity-75 ">
+          <div className="relative bg-white p-2 sm:p-8 rounded-lg w-11/12 lg:w-5/12">
             <h1 className="text-center text-2xl font-medium pb-3">{worker}</h1>
             <div className=" ">
               <div className="flex justify-center">
-                <h1 className="text-xl pb-3 px-3">Number of overtime hours:</h1>
+                <h1 className="text-xl pb-3 pr-3">Number of overtime hours:</h1>
                 <div className="text-2xl font-medium pb-3">
                   {allOvertime.reduce((acc, curr) => acc + curr.hours, 0)}
                 </div>
               </div>
               {allOvertime.map((obj, i) => {
                 return (
-                <div>
-                   <div key={i} className="flex justify-around items-center">
-                  <div>{obj.date}</div>
-                  <div>{obj.hours}</div>
-                  <button className="py-1.5 px-5 my-1 rounded-md bg-red-500 hover:bg-red-600 text-white">Delete</button>
-                </div>
-                <hr />
-                </div>
-               )
+                  <div key={i}>
+                    <div className="flex justify-around items-center">
+                      <div className="text-xl">{obj.date}</div>
+                      <div className="text-xl">{obj.hours}</div>
+                      <button
+                        className="py-1.5 px-5 my-1 rounded-md bg-red-500 hover:bg-red-600 text-white"
+                        onClick={() => deleteOvertime(obj.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                );
               })}
             </div>
             <button
-                className="text-xl font-medium absolute top-5 right-5"
-              >
-                x
-              </button>
+              className="text-xl font-medium absolute top-5 right-5"
+              onClick={() => {
+                setShowAllOvertime(false);
+                setHideOvertimeReviewComponent(true);
+              }}
+            >
+              x
+            </button>
           </div>
         </div>
-        )
-      }
-     
+      )}
     </div>
   );
 };
