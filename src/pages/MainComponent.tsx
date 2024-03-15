@@ -8,10 +8,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import userImg from "../assets/img/userImg.png";
-import ChangeAndDeleteWorker from "./ChangeAndDeleteWorker";
-import ChangeImageWorker from "./ChangeImageWorker";
-import AddOvertimeComponent from "./AddOvertimeComponent";
-import OvertimeReview from "./OvertimeReview";
+import ChangeAndDeleteWorker from "../components/ChangeAndDeleteWorker";
+import ChangeImageWorker from "../components/ChangeImageWorker";
+import AddOvertimeComponent from "../components/AddOvertimeComponent";
+import OvertimeReview from "../components/OvertimeReview";
 
 type MainComponentProps = {
   user?: { username?: string; userId?: string };
