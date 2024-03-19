@@ -44,7 +44,7 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   const addWorkerBtn = async () => {
     if (inputWorker) {
       try {
-        const response = await createWorker(inputWorker);
+        const response = await createWorker(inputWorker.trim());
         setInputWorker("");
         if (response.data === "Worker exist") {
           toast.error("Worker exist!!!");

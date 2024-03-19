@@ -23,7 +23,7 @@ export const createManager = (token: string) => axios.post("/manager/add-manager
 
 export const createWorker = (worker: string) => axios.post("/manager/create-worker", {nameWorker: worker});
 
-export const deleteWorkerInBackend = (worker: string) => axios.delete("/manager/delete-worker", {data: {workerForDelete: worker}});
+export const deleteWorkerInBackend = (worker: string) => axios.delete(`/manager/delete-worker/${worker}`);
 
 export const changeWorkerName = (workerName: ChangeWorkerName) => axios.put("/manager/change-worker-name", workerName);
 
@@ -33,4 +33,4 @@ export const SendHoursAndDate = (data: HoursAndDate) => axios.post("/overtime/se
 
 export const sendReviewData = (data: ReviewDate) => axios.post("/overtime/send-overtime-review-data", data);
 
-export const deleteOvertimeHours = (id: string) => axios.delete(`/overtime/delete-overtime-hours${id}`);
+export const deleteOvertimeHours = (id: string) => axios.delete(`/overtime/delete-overtime-hours/${id}`);
