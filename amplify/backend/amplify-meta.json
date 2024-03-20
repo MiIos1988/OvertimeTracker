@@ -1,0 +1,58 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-overtime-dev-220531-authRole",
+      "UnauthRoleArn": "arn:aws:iam::444025380770:role/amplify-overtime-dev-220531-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::444025380770:role/amplify-overtime-dev-220531-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-overtime-dev-220531-deployment",
+      "UnauthRoleName": "amplify-overtime-dev-220531-unauthRole",
+      "StackName": "amplify-overtime-dev-220531",
+      "StackId": "arn:aws:cloudformation:eu-north-1:444025380770:stack/amplify-overtime-dev-220531/a3392700-c145-11ee-a303-06119ad15477",
+      "AmplifyAppId": "d2hxbjqyl1hh1"
+    }
+  },
+  "auth": {
+    "overtime2c11a1ba": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-overtime-dev-220531-deployment/amplify-cfn-templates/auth/overtime2c11a1ba-cloudformation-template.json",
+        "logicalId": "authovertime2c11a1ba"
+      },
+      "lastPushTimeStamp": "2024-02-01T21:09:42.649Z",
+      "output": {
+        "UserPoolId": "eu-north-1_Vo87l28Kd",
+        "AppClientIDWeb": "3gt5j5ft7bhsc3qkmtrddcjstt",
+        "AppClientID": "14midi9ja0vl15h6muoojr0tdn",
+        "IdentityPoolId": "eu-north-1:86f4aaca-7409-4f60-affe-99ee865a38d0",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-north-1:444025380770:userpool/eu-north-1_Vo87l28Kd",
+        "IdentityPoolName": "overtime2c11a1ba_identitypool_2c11a1ba__dev",
+        "UserPoolName": "overtime2c11a1ba_userpool_2c11a1ba"
+      },
+      "lastPushDirHash": "/XX31MM7CjsJX9zvyOHWaGl7v1k="
+    }
+  }
+}
