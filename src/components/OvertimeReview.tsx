@@ -42,12 +42,11 @@ const OvertimeReview: React.FC<OvertimeReviewProps> = ({
     }
   };
 
-  const deleteOvertime = async(id: string) => {
-    const deleteHours =  await deleteOvertimeHours(id);
+  const deleteOvertime = async (id: string) => {
+    const deleteHours = await deleteOvertimeHours(id);
     const deleteId = deleteHours.data.id;
-    const newAllOvertime = allOvertime.filter(obj => obj.id !== deleteId);
+    const newAllOvertime = allOvertime.filter((obj) => obj.id !== deleteId);
     setAllOvertime(newAllOvertime);
-    
   };
 
   return (
