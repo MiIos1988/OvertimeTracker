@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { changeImage } from "../service/service";
+import userImg from "../assets/img/userImg.png";
 
 type AllWorkers = {
   nameWorker: string;
@@ -48,7 +49,7 @@ const ChangeImageWorker: React.FC<ChangeImageWorkerProps> = ({
       <div className="relative bg-white p-8 rounded-lg w-11/12 lg:w-3/12 flex flex-col items-center">
         <h1 className="text-center text-2xl font-medium pb-3">{worker}</h1>
         <img
-          src={urlImage ? urlImage : workerImg}
+          src={urlImage ? urlImage : workerImg ? workerImg : userImg}
           className="w-40 h-40 rounded-full bg-cover mb-5"
         />
         <label
