@@ -72,7 +72,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
   }, [user]);
 
   useEffect(() => {
-    axios.defaults.baseURL = "https://overtime-tracker-backend.onrender.com/api";
+    axios.defaults.baseURL =
+      "https://overtime-tracker-backend.onrender.com/api";
     const interceptor = axios.interceptors.request.use((config) => {
       if (tokenAccess) {
         config.headers.Authorization = `Bearer ${tokenAccess}`;
@@ -177,7 +178,8 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
                     >
                       Add overtime
                     </button>
-                    <button className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white"
+                    <button
+                      className="md:mr-12 mr-1 py-1.5 md:px-5 px-2 rounded-md bg-gray-500 hover:bg-gray-600 text-white"
                       onClick={() => openOvertimeReviewWin(worker.nameWorker)}
                     >
                       Show overtime
@@ -226,15 +228,13 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
           onSignOut={onSignOut}
         />
       )}
-      {
-        !hideOvertimeReviewComponent && (
-          <OvertimeReview
+      {!hideOvertimeReviewComponent && (
+        <OvertimeReview
           worker={clickWorker}
           setHideOvertimeReviewComponent={setHideOvertimeReviewComponent}
           onSignOut={onSignOut}
-          />
-        )
-      }
+        />
+      )}
     </div>
   );
 };
