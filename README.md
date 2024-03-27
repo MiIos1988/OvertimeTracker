@@ -4,6 +4,6 @@
 
 <a href="https://overtime-tracker.vercel.app/">Demo</a>
 
-<img src="./src/assets/image/zureaShop.png">
+<img src="./src/assets/img/zureaShop.png">
 
 
