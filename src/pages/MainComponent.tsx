@@ -138,19 +138,19 @@ const MainComponent = ({ user, onSignOut }: MainComponentProps) => {
       >
         Sign out
       </button>
-      <div className="flex w-11/12 xl:w-7/12 2xl:w-2/4 my-8">
+      <div className="flex w-11/12 xl:w-7/12 2xl:w-2/4 my-8 ">
         <input
-          className="w-full p-2 shadow-xl text-lg"
+          className="w-full p-2 shadow-xl text-lg rounded-l-lg"
           type="text"
           placeholder="Enter the worker"
           onChange={addWorkerInput}
           value={inputWorker}
         />
-        <button className="bg-gray-300 p-2 " onClick={addWorkerBtn}>
+        <button className="bg-gray-300 p-2 rounded-r-lg" onClick={addWorkerBtn}>
           Add
         </button>
       </div>
-      <div className="flex-1 w-11/12 xl:w-7/12 2xl:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14 overflow-auto">
+      <div className="flex-1 w-11/12 xl:w-7/12 2xl:w-2/4 h-2/4 bg-white shadow-xl bg-opacity-80 mb-14 overflow-auto rounded-xl">
         {allWorkers.map((worker, index) => {
           return (
             <div key={index}>
