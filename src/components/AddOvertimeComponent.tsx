@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { SendHoursAndDate } from "../service/service";
+import { sendHoursAndDate } from "../service/service";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,7 +35,7 @@ const AddOvertimeComponent: React.FC<AddOvertimeComponentProps> = ({
     };
     try {
       if (inputValue > 0) {
-        await SendHoursAndDate(data);
+        await sendHoursAndDate(data);
         setHideAddOvertimeComponent(true);
         toast.success(`Add hours for ${worker}`);
       }

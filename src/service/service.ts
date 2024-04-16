@@ -29,7 +29,7 @@ export const changeWorkerName = (workerName: ChangeWorkerName) => axios.put("/ma
 
 export const changeImage = (image: FormData) => axios.post("/aws-s3/change-image", image);
 
-export const SendHoursAndDate = (data: HoursAndDate) => axios.post("/overtime/send-overtime-data", data);
+export const sendHoursAndDate = (data: HoursAndDate) => axios.post("/overtime/send-overtime-data", data);
 
 export const sendReviewData = (data: ReviewDate) => axios.post("/overtime/send-overtime-review-data", data);
 
